@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lichking.itf.dao.IOrderInfoDAO" >
+  <resultMap id="BaseResultMap" type="com.lichking.pojo.OrderInfoPOJO" >
+    <id column="orderNo" property="orderno" jdbcType="VARCHAR" />
+    <result column="dealTime" property="dealtime" jdbcType="TIMESTAMP" />
+    <result column="orderDetails" property="orderdetails" jdbcType="VARCHAR" />
+    <result column="customerId" property="customerid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orderNo, dealTime, orderDetails, customerId, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from OrderInfo
+    where orderNo = #{orderno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from OrderInfo
+    where orderNo = #{orderno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lichking.pojo.OrderInfoPOJO" >
+    insert into OrderInfo (orderNo, dealTime, orderDetails, 
+      customerId, status)
+    values (#{orderno,jdbcType=VARCHAR}, #{dealtime,jdbcType=TIMESTAMP}, #{orderdetails,jdbcType=VARCHAR}, 
+      #{customerid,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lichking.pojo.OrderInfoPOJO" >
+    insert into OrderInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderno != null" >
+        orderNo,
+      </if>
+      <if test="dealtime != null" >
+        dealTime,
+      </if>
+      <if test="orderdetails != null" >
+        orderDetails,
+      </if>
+      <if test="customerid != null" >
+        customerId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderno != null" >
+        #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null" >
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderdetails != null" >
+        #{orderdetails,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lichking.pojo.OrderInfoPOJO" >
+    update OrderInfo
+    <set >
+      <if test="dealtime != null" >
+        dealTime = #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderdetails != null" >
+        orderDetails = #{orderdetails,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null" >
+        customerId = #{customerid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where orderNo = #{orderno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lichking.pojo.OrderInfoPOJO" >
+    update OrderInfo
+    set dealTime = #{dealtime,jdbcType=TIMESTAMP},
+      orderDetails = #{orderdetails,jdbcType=VARCHAR},
+      customerId = #{customerid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT}
+    where orderNo = #{orderno,jdbcType=VARCHAR}
+  </update>
+</mapper>
