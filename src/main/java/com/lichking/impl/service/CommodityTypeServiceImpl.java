@@ -21,4 +21,11 @@ public class CommodityTypeServiceImpl implements ICommodityTypeService {
 		return this.commodityTypeDAO.selectAll();
 	}
 
+	@Override
+	public int insertComType(CommodityTypePOJO type) {
+		return this.commodityTypeDAO.insert(type);
+	}
+	
+	
+
 }

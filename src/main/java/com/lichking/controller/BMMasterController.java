@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lichking.itf.service.IUserService;
 import com.lichking.pojo.ResultPOJO;
 import com.lichking.pojo.UserPOJO;
+import com.lichking.util.session.UserJudge;
 
 @Controller
 @RequestMapping("/back")
-public class BackgroundManageLoginController {
+public class BMMasterController {
 
 	@Resource
 	private IUserService userService;
@@ -29,8 +30,6 @@ public class BackgroundManageLoginController {
 		log.info("请求路径：/back/check_psw");
 		UserPOJO user = this.userService.getUser(userpojo.getUsername());
 		String psw = user.getPassword();
-		//log.info("username:"+userpojo.getUsername()+"\t db_username:"+user.getUsername());
-		//log.info("password:"+userpojo.getPassword()+"\t db_password:"+user.getPassword());
 		ResultPOJO<UserPOJO> resultPOJO = new ResultPOJO<UserPOJO>();
 		if(psw.equals(userpojo.getPassword())){
 			log.info("检查正确");
@@ -55,8 +54,8 @@ public class BackgroundManageLoginController {
 	@RequestMapping("/manage")
 	public String Manage(HttpServletRequest req){
 		log.info("请求路径：/back/manage");
-		String user = (String) req.getSession().getAttribute("currentUser");
-		if(user == null){
+		boolean islogin = UserJudge.isAdmin("currentUser", req);
+		if(!islogin){
 			log.info("用户为空，重定向至:/back/login");
 			return "redirect:login";
 		}else{
@@ -64,5 +63,23 @@ public class BackgroundManageLoginController {
 		}
 	}
 
+	/*
+	@RequestMapping("/modal")
+	public String testModal(){
+		log.info("请求路径：/back/modal");
+		return "back/testModal";
+	}
+	*/
+	@RequestMapping("/ComOverview")
+	public String vComOverview(){
+		log.info("请求路径：/back/ComOverview");
+		return "back/op_for_com/ComOverview";
+	}
+	
+	@RequestMapping("/CreateNewType")
+	public String vCreateNewTypes(){
+		log.info("请求路径：/back/CreateNewType");
+		return "back/op_for_type/CreateNewType";
+	}
 	
 }

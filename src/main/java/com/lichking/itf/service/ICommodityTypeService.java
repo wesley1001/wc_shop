@@ -8,4 +8,7 @@ public interface ICommodityTypeService {
 
 	public List<CommodityTypePOJO> getAllTypes();
 	
+	public int insertComType(CommodityTypePOJO type);
+
+	
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 public class OrderInfoPOJO {
     private String orderno;
 
+    private Date dealdate;
+
     private Date dealtime;
 
     private String orderdetails;
@@ -19,6 +21,14 @@ public class OrderInfoPOJO {
 
     public void setOrderno(String orderno) {
         this.orderno = orderno == null ? null : orderno.trim();
+    }
+
+    public Date getDealdate() {
+        return dealdate;
+    }
+
+    public void setDealdate(Date dealdate) {
+        this.dealdate = dealdate;
     }
 
     public Date getDealtime() {
