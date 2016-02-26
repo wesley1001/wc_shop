@@ -63,13 +63,7 @@ public class BMMasterController {
 		}
 	}
 
-	/*
-	@RequestMapping("/modal")
-	public String testModal(){
-		log.info("请求路径：/back/modal");
-		return "back/testModal";
-	}
-	*/
+	
 	@RequestMapping("/ComOverview")
 	public String vComOverview(){
 		log.info("请求路径：/back/ComOverview");
@@ -82,4 +76,9 @@ public class BMMasterController {
 		return "back/op_for_type/CreateNewType";
 	}
 	
+	@RequestMapping("/CreateNewCom")
+	public String vCreateNewCom(){
+		log.info("请求路径：/back/CreateNewCom");
+		return "back/op_for_com/CreateNewCom";
+	}
 }

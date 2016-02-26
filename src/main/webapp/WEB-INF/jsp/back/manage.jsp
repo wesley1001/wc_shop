@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,19 +10,8 @@
 <meta name="keywords" content="bootstrap, admin, wc_shop" />
 <title>微信商城后台管理系统</title>
 <link href="../css/root.css" rel="stylesheet">
-<!-- jQuery 库 -->
-<!--  
-<script type="text/javascript" src="../js/jquery.min.js"></script>
--->
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<!-- Bootstrap 核心文件  -->
-<!--  
-<script src="../js/bootstrap/bootstrap.min.js"></script>
--->
+<script src="http://libs.baidu.com/jquery/1.8.2/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 </head>
 
 <body>
@@ -97,9 +87,9 @@
 			<li><a><span class="icon color7"><i
 						class="fa fa-flask"></i></span>商品操作<span class="caret"></span></a>
 				<ul>
-					<li><a href="ComOverview" data-toggle="modal" data-target="#modal">商品总览</a></li>
-					<li><a id="createtype" href="CreateNewType" data-toggle="modal" data-target="#modal">新增类型</a></li>
-					<li><a href="">新增商品</a></li>
+					<li><a data="comoverview" href="ComOverview" data-toggle="modal" data-target="#modal" >商品总览</a></li>
+					<li><a data="createtype" href="CreateNewType" data-toggle="modal" data-target="#modal" >新增类型</a></li>
+					<li><a data="createcom" href="CreateNewCom" data-toggle="modal" data-target="#modal">新增商品</a></li>
 					<li><a href="">编辑商品</a></li>
 					<li><a href="">上架商品</a></li>
 					<li><a href="">下架商品</a></li>
@@ -301,7 +291,7 @@
 	<!-- End Content -->
 	
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog"
-		aria-labelledby="modal" aria-hidden="true" style="width:80%;margin:auto auto auto auto;overflow:hidden;padding-top:30px;">
+		aria-labelledby="modal" aria-hidden="true" style="width:70%;margin:auto auto auto auto;padding-top:10px;">
 		<div class="modal-content"></div>
 	</div>
 
@@ -335,6 +325,7 @@
 	<script type="text/javascript" src="../js/moment/moment.min.js"></script>
 
 	<script type="text/javascript" src="../js/chart_generate.js"></script>
+	
 	<script type="text/javascript" src="../js/manage.jquery.js"></script>
 
 
