@@ -1,18 +1,21 @@
 //$("#modal").on('show.bs.modal', function (){
-$("#a1").bind("click",function(){
-	var imgNames = [];
-	$("#a1").hide();
-	var $up = "<input type=\"file\" name=\"uploadify\" id=\"file_upload\" />"+  
-      "<button class=\"btn btn-primary\" href=\"javascript:$('#file_upload').uploadify('upload','*')\">开始上传</button>&nbsp;"+     
-      "<button class=\"btn btn-primary\" href=\"javascript:$('#file_upload').uploadify('cancel', '*')\">取消上传</button>";
+var imgNames = [];
+var editor;
+$("#com_load").bind("click",function(){
+	editor = CKEDITOR.replace('editor1'); 
+	//$("#a1").hide();
+	var $up = "<input type=\"file\" name=\"uploadify\" id=\"uploadify\" />"+  
+      "<a class=\"btn btn-primary\" href=\"javascript:$('#uploadify').uploadify('upload','*')\">开始上传</a>&nbsp;"+     
+      "<a class=\"btn btn-primary\" href=\"javascript:$('#uploadify').uploadify('cancel','*')\">取消上传</a>";
       $up += "<div id=\"uploadfileQueue\"></div>";
 	$("#upload").html($up);
+	getTypesAndCreate();
 	/*<input type="file" name="uploadify" id="file_upload" />  
       <a href="javascript:$('#file_upload').uploadify('upload','*')">开始上传</a>&nbsp;     
       <a href="javascript:$('#file_upload').uploadify('cancel', '*')">取消上传</a>
 	*/
 	//alert("111");
-    $("#file_upload").uploadify({
+    $("#uploadify").uploadify({
         //是否自动上传 true or false
         'auto':false,
         //超时时间上传成功后，将等待服务器的响应时间。
@@ -41,9 +44,9 @@ $("#a1").bind("click",function(){
          //将要上传的文件对象的名称 必须与后台controller中抓取的文件名保持一致    
         'fileObjName':'pic',
         //上传地址
-       //'uploader':'/wc_shop/back/upload/uploadImage',
-       'uploader':'/wc_shop/test/testupload',
-       'buttonText':'选择文件',
+       	'uploader':'/wc_shop/back/upload/uploadImage',
+       //'uploader':'/wc_shop/test/testupload',
+       	'buttonText':'选择文件',
         //浏览将要上传文件按钮的背景图片路径
        // 'buttonImage':'/wc_shop/uploadify/background.jpg',
         //浏览按钮的宽度
@@ -98,3 +101,90 @@ $("#a1").bind("click",function(){
         	} 
     });
 });
+$("#save").bind("click",function(){
+
+	var imgUrl = "";
+	if(imgNames.length == 0){
+		alert("请上传商品照片！");
+		return;
+	}
+	for(var i=0;i<imgNames.length;i++){
+		var tmp = "/wc_shop/upload/image/"+ imgNames[i];
+		imgUrl += tmp + ";";
+	}
+	var obj = {
+		name : $("#comname").val(),
+		descsimple : $("#simpledesc").val(),
+		imageurl : imgUrl,
+		price : $("#price").val(),
+		descdetails : editor.document.getBody().getHtml(),
+		type : $("#types option:selected").text()
+	};
+	//alert(obj.type);
+	var msg = validate(obj);
+	//alert(JSON.stringify(obj));
+	//alert(msg);
+	if(msg == "0"){
+		//执行ajax 提交数据
+		$.ajax({
+			url : '/wc_shop/back/data/addCom',
+			data: JSON.stringify(obj),
+			contentType : 'application/json;charset=utf-8',
+			type:"post",
+			success:function(data){
+				var result = data.result;
+				var msg = data.msg;
+				if(result){
+					alert(msg);
+					$("#modal").modal("hide");
+				}else{
+					alert(msg);
+				}
+			}
+		});
+	}else{
+		alert(msg);
+	}
+});
+function validate(obj){
+	var msg = "";
+	var price = obj.price;
+	if (isNaN(price) || price.length == 0)
+		msg += "价格中请输入正确的数字!<br />";
+	if (obj.name.length == 0)
+		msg += "请输入商品名称！<br />";
+	if (obj.descsimple.length == 0)
+	    msg += "请输入商品的简要描述！<br />";
+	if (obj.descdetails.length ==0)
+		msg += "请输入商品的详细描述！<br />";
+	if (msg.length == 0 )
+		msg = "0";
+	
+	return msg;
+	
+}
+function getTypesAndCreate(){
+	var types = [];
+	$.ajax({
+		url:"/wc_shop/back/data/getAllTypes",
+		contentType : 'application/json;charset=utf-8',
+		type:"post",
+		success:function(data){
+			var type_arr = data.t;
+			for(var i=0;i<type_arr.length;i++){
+				types.push(type_arr[i].type);
+				//alert(types);
+			}
+			createSelection(types);
+		}
+	});	
+	
+}
+function createSelection(types){
+	var innerhtml = "";
+	for(var i=0;i<types.length;i++){
+		innerhtml += "<option value=\""+types[i]+"\">"+types[i]+"</option>";
+	}
+	//alert(innerhtml);
+	$("#types").append(innerhtml);
+}

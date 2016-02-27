@@ -11,7 +11,7 @@ $("a").click(function(){
 				contentType : 'application/json;charset=utf-8',
 				type:"post",
 				success:function(data){
-					console.log(data);
+					//console.log(data);
 					var types = data.t;
 					var content = "";
 					for(var i=0;i<types.length;i++){
@@ -20,9 +20,9 @@ $("a").click(function(){
 					$(".typeshow").html(content);
 				}
 			});	
-		}/*else if(view == "createcom"){
+		}else if(view == "createcom"){
 			//setTimeout(createnewcom(),1000);
-		}else if(view == ""){
+		}/*else if(view == ""){
 		
 		}
 		*/

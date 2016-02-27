@@ -6,7 +6,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="descSimple" property="descsimple" jdbcType="VARCHAR" />
     <result column="imageUrl" property="imageurl" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="descDetails" property="descdetails" jdbcType="VARCHAR" />
     <result column="sellNo" property="sellno" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
@@ -33,7 +33,7 @@
       sellNo, type, isOnline, 
       restNo)
     values (#{commodityid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{descsimple,jdbcType=VARCHAR}, 
-      #{imageurl,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{descdetails,jdbcType=VARCHAR}, 
+      #{imageurl,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{descdetails,jdbcType=VARCHAR}, 
       #{sellno,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{isonline,jdbcType=TINYINT}, 
       #{restno,jdbcType=INTEGER})
   </insert>
@@ -85,7 +85,7 @@
         #{imageurl,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
-        #{price,jdbcType=INTEGER},
+        #{price,jdbcType=DOUBLE},
       </if>
       <if test="descdetails != null" >
         #{descdetails,jdbcType=VARCHAR},
@@ -117,7 +117,7 @@
         imageUrl = #{imageurl,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
-        price = #{price,jdbcType=INTEGER},
+        price = #{price,jdbcType=DOUBLE},
       </if>
       <if test="descdetails != null" >
         descDetails = #{descdetails,jdbcType=VARCHAR},
@@ -142,7 +142,7 @@
     set name = #{name,jdbcType=VARCHAR},
       descSimple = #{descsimple,jdbcType=VARCHAR},
       imageUrl = #{imageurl,jdbcType=VARCHAR},
-      price = #{price,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
       descDetails = #{descdetails,jdbcType=VARCHAR},
       sellNo = #{sellno,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},

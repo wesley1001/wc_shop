@@ -9,7 +9,7 @@ public class CommodityInfoPOJO {
 
     private String imageurl;
 
-    private Integer price;
+    private double price;
 
     private String descdetails;
 
@@ -53,12 +53,12 @@ public class CommodityInfoPOJO {
         this.imageurl = imageurl == null ? null : imageurl.trim();
     }
 
-    public Integer getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price = Double.valueOf(price);
     }
 
     public String getDescdetails() {

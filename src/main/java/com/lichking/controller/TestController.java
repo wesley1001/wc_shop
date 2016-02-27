@@ -50,5 +50,10 @@ public class TestController {
 		System.out.println("访问upload");
 		return "test/testupload";
 	}
-	
+	@RequestMapping("/testck")
+	public String vTestCK(){
+		//log.info("访问upload");
+		//System.out.println("访问upload");
+		return "test/testck";
+	}
 }

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lichking.itf.service.ICommodityInfoService;
 import com.lichking.itf.service.ICommodityTypeService;
+import com.lichking.pojo.CommodityInfoPOJO;
 import com.lichking.pojo.CommodityTypePOJO;
 import com.lichking.pojo.ResultPOJO;
 
@@ -21,6 +23,7 @@ public class BMDataContronller {
 	
 	@Resource
 	private ICommodityTypeService commodityTypeService;
+	private ICommodityInfoService commodityInfoService;
 	
 	private Logger log = Logger.getLogger(BMDataContronller.class);
 	
@@ -51,6 +54,26 @@ public class BMDataContronller {
 		return result;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/addCom")
+	public @ResponseBody ResultPOJO addCommodity(HttpServletResponse res,@RequestBody CommodityInfoPOJO com){
+		log.info("请求/back/data/addCom");
+		//byte ison = 0;
+		//com.setIsonline(ison);
+		//com.setRestno(0);
+		//com.setSellno(0);
+		int r = this.commodityInfoService.insertCom(com);
+		ResultPOJO result = new ResultPOJO<>();
+		if(r == 1){
+			result.setMsg("新增商品成功");
+			result.setResult(true);
+		}else{
+			result.setMsg("新增商品失败");
+			result.setResult(false);
+		}
+		return result;
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ResultPOJO<List> getTypes(){
 		List<CommodityTypePOJO> c_list = this.commodityTypeService.getAllTypes();
@@ -61,12 +84,18 @@ public class BMDataContronller {
 		return result;
 	}
 
+	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public boolean canAdd(CommodityTypePOJO type){
 		ResultPOJO result = getTypes();
+		//log.info(type.getType());
 		List<CommodityTypePOJO> list = (List<CommodityTypePOJO>) result.getT();
 		for(CommodityTypePOJO t : list){
-			if(t.getType().equals(type.getType()));
+			//log.info(t.getType());
+			if(t.getType().equals(type.getType())){
 				return false;
+			}
 		}
 		return true;
 	}

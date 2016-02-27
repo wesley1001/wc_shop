@@ -327,8 +327,8 @@
 	<script type="text/javascript" src="../js/chart_generate.js"></script>
 	
 	<script type="text/javascript" src="../js/manage.jquery.js"></script>
-
-
+	<script src="../ckeditor/ckeditor.js"></script>
+	
 
 </body>
 </html>
