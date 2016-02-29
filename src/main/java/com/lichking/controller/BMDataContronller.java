@@ -23,6 +23,7 @@ public class BMDataContronller {
 	
 	@Resource
 	private ICommodityTypeService commodityTypeService;
+	@Resource
 	private ICommodityInfoService commodityInfoService;
 	
 	private Logger log = Logger.getLogger(BMDataContronller.class);
@@ -62,7 +63,7 @@ public class BMDataContronller {
 		//com.setIsonline(ison);
 		//com.setRestno(0);
 		//com.setSellno(0);
-		int r = this.commodityInfoService.insertCom(com);
+		int r = this.commodityInfoService.insertComWithNull(com);
 		ResultPOJO result = new ResultPOJO<>();
 		if(r == 1){
 			result.setMsg("新增商品成功");

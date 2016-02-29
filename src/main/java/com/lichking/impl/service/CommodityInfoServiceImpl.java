@@ -15,8 +15,8 @@ public class CommodityInfoServiceImpl implements ICommodityInfoService {
 	private ICommodityInfoDAO iCommodityInfoDAO;
 	
 	@Override
-	public int insertCom(CommodityInfoPOJO com) {
-		return this.iCommodityInfoDAO.insert(com);
+	public int insertComWithNull(CommodityInfoPOJO com) {
+		return this.iCommodityInfoDAO.insertSelective(com);
 	}
 
 }

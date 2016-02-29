@@ -10,7 +10,9 @@
 		aria-hidden="true">&times;</button>
 	<h4 class="modal-title" id="myModalLabel" align="center">商品总览</h4>
 </div>
-<div class="modal-body">在这里添加一些文本</div>
+<div class="modal-body">
+	
+</div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 	</button>

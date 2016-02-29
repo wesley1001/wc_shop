@@ -4,6 +4,6 @@ import com.lichking.pojo.CommodityInfoPOJO;
 
 public interface ICommodityInfoService {
 
-	public int insertCom(CommodityInfoPOJO com);
+	public int insertComWithNull(CommodityInfoPOJO com);
 	
 }
