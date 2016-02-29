@@ -15,6 +15,11 @@ import com.lichking.pojo.ResultPOJO;
 import com.lichking.pojo.UserPOJO;
 import com.lichking.util.session.UserJudge;
 
+/**
+ * 后台管理系统的路径总控制以及登录控制
+ * @author LichKing
+ *
+ */
 @Controller
 @RequestMapping("/back")
 public class BMMasterController {

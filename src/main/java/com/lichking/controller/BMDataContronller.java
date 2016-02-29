@@ -17,6 +17,11 @@ import com.lichking.pojo.CommodityInfoPOJO;
 import com.lichking.pojo.CommodityTypePOJO;
 import com.lichking.pojo.ResultPOJO;
 
+/**
+ * 用于前后台的数据交互
+ * @author LichKing
+ *
+ */
 @Controller
 @RequestMapping("/back/data")
 public class BMDataContronller {
@@ -28,6 +33,12 @@ public class BMDataContronller {
 	
 	private Logger log = Logger.getLogger(BMDataContronller.class);
 	
+	/**
+	 * 查询所有商品类型
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value="/getAllTypes")
 	public @ResponseBody ResultPOJO<List> getAllCommodityTypes(HttpServletResponse res) throws Exception{
@@ -37,6 +48,12 @@ public class BMDataContronller {
 		return result;
 	}
 	
+	/**
+	 * 新增商品类型
+	 * @param res
+	 * @param type
+	 * @return
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/addTypes")
 	public @ResponseBody ResultPOJO<List> addCommodityTypes(HttpServletResponse res,@RequestBody CommodityTypePOJO type){
@@ -55,14 +72,15 @@ public class BMDataContronller {
 		return result;
 	}
 	
+	/**
+	 * 新增商品
+	 * @param com
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/addCom")
-	public @ResponseBody ResultPOJO addCommodity(HttpServletResponse res,@RequestBody CommodityInfoPOJO com){
+	public @ResponseBody ResultPOJO addCommodity(@RequestBody CommodityInfoPOJO com){
 		log.info("请求/back/data/addCom");
-		//byte ison = 0;
-		//com.setIsonline(ison);
-		//com.setRestno(0);
-		//com.setSellno(0);
 		int r = this.commodityInfoService.insertComWithNull(com);
 		ResultPOJO result = new ResultPOJO<>();
 		if(r == 1){
@@ -75,6 +93,39 @@ public class BMDataContronller {
 		return result;
 	}
 	
+	/**
+	 * 按条件查询商品
+	 * @param com
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/queryComByWhere")
+	public @ResponseBody ResultPOJO<List> queryComByWhere(@RequestBody CommodityInfoPOJO com){
+		log.info("请求:/back/data/queryComByWhere");
+		List<CommodityInfoPOJO> list = this.commodityInfoService.selectByWhere(com);
+		ResultPOJO<List> result = new ResultPOJO<List>();
+		for(CommodityInfoPOJO c : list){
+			String img_url = c.getImageurl();
+			String[] urls = img_url.split(";");
+			c.setImageurl(urls[0]);
+			c.setDescdetails("");
+			c.setType("");
+		}
+		if(list.size() > 0){
+			result.setMsg("查询成功");
+			result.setResult(true);
+			result.setT(list);
+		}else{
+			result.setMsg("查询失败");
+			result.setResult(false);
+		}
+		return result;
+	}
+	
+	/**
+	 * 获取商品类型 常用 所以写成方法
+	 * @return
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ResultPOJO<List> getTypes(){
 		List<CommodityTypePOJO> c_list = this.commodityTypeService.getAllTypes();
@@ -86,7 +137,11 @@ public class BMDataContronller {
 	}
 
 	
-	
+	/**
+	 * 检查要新增的商品类型是否已经存在
+	 * @param type
+	 * @return
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public boolean canAdd(CommodityTypePOJO type){
 		ResultPOJO result = getTypes();

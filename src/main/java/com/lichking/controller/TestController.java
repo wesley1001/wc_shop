@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +36,7 @@ public class TestController {
 		// 为了避免文件名重复，在文件名前加UUID
 		String uuid = UUID.randomUUID().toString().replace("-", "");
 		String uuidFileName = uuid + fileName;
+		@SuppressWarnings("unused")
 		File f = new File(filePath + "/" + uuid + "." + fileType);
 		// 将文件保存到服务器
 		FileUtil.upFile(pic.getInputStream(), uuidFileName, filePath);
@@ -56,4 +55,6 @@ public class TestController {
 		//System.out.println("访问upload");
 		return "test/testck";
 	}
+	
+	
 }

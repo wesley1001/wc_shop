@@ -1,5 +1,7 @@
 package com.lichking.itf.dao;
 
+import java.util.List;
+
 import com.lichking.pojo.CommodityInfoPOJO;
 
 public interface ICommodityInfoDAO {
@@ -14,4 +16,6 @@ public interface ICommodityInfoDAO {
     int updateByPrimaryKeySelective(CommodityInfoPOJO record);
 
     int updateByPrimaryKey(CommodityInfoPOJO record);
+    
+    List<CommodityInfoPOJO> selectByWhere(CommodityInfoPOJO record);
 }

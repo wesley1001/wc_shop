@@ -188,3 +188,5 @@ function createSelection(types){
 	//alert(innerhtml);
 	$("#types").append(innerhtml);
 }
+
+

@@ -16,6 +16,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.lichking.util.FileUtil;
 
+/**
+ * uploadify图片的上传的后台处理
+ * @author LichKing
+ *
+ */
 @Controller
 @RequestMapping("/back/upload")
 public class BMUploadContronller {
@@ -34,6 +39,7 @@ public class BMUploadContronller {
 		// 为了避免文件名重复，在文件名前加UUID
 		String uuid = UUID.randomUUID().toString().replace("-", "");
 		String uuidFileName = uuid + fileName;
+		@SuppressWarnings("unused")
 		File f = new File(filePath + "/" + uuid + "." + fileType);
 		// 将文件保存到服务器
 		FileUtil.upFile(pic.getInputStream(), uuidFileName, filePath);
