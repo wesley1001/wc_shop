@@ -3,6 +3,8 @@
 <html>
 <head>
 <link href="../css/comoverview.css" rel="stylesheet">
+<link href="../css/createnewcom.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../uploadify/uploadify.css" />
 </head>
 <body>
 	<script type="text/javascript" src="../js/comoverview.jquery.js"></script>
@@ -44,7 +46,7 @@
 				</div>
  				
 
-
+				<div class="com_edit_area"></div>
 			</div>
 		</div>
 		<div class="modal-footer">

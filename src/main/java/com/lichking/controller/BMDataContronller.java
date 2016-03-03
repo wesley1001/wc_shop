@@ -122,6 +122,56 @@ public class BMDataContronller {
 		return result;
 	}
 	
+	@RequestMapping("/queryComByPK")
+	public @ResponseBody ResultPOJO<CommodityInfoPOJO> getComByPK(@RequestBody Integer comid){
+		log.info("请求:/back/data/queryComByPK");
+		CommodityInfoPOJO com = this.commodityInfoService.selectByPK(comid);
+		ResultPOJO<CommodityInfoPOJO> result = new ResultPOJO<CommodityInfoPOJO>();
+		if(!com.getName().equals("") && com.getName() != null){
+			result.setResult(true);
+			result.setMsg("查询成功");
+			result.setT(com);
+		}else{
+			result.setResult(false);
+			result.setMsg("查询失败");
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/updateComByPKSelective")
+	public @ResponseBody ResultPOJO updateCom(@RequestBody CommodityInfoPOJO com){
+		log.info("请求路径：/back/data/updateComByPKSelective");
+		int r = this.commodityInfoService.updateComByPKSelective(com);
+		System.out.println(r);
+		ResultPOJO result = new ResultPOJO();
+		if(r == 1){
+			result.setMsg("更新商品成功");
+			result.setResult(true);
+		}else{
+			result.setMsg("更新商品失败");
+			result.setResult(false);
+		}
+		return result;
+	}
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/deleteComByPK")
+	public @ResponseBody ResultPOJO<CommodityInfoPOJO> deleteComByPK(@RequestBody Integer comid){
+		log.info("请求:/back/data/deleteComByPK");
+		int r = this.commodityInfoService.deleteComByPK(comid);
+		ResultPOJO result = new ResultPOJO();
+		if(r == 1){
+			result.setResult(true);
+			result.setMsg("删除成功");
+		}else{
+			result.setResult(false);
+			result.setMsg("查询失败");
+		}
+		return result;
+	}
+	
 	/**
 	 * 获取商品类型 常用 所以写成方法
 	 * @return

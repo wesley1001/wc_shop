@@ -34,17 +34,11 @@
     <if test="descsimple != null and descsimple != '' " >
     	and descSimple like CONCAT('%',#{descsimple},'%')
     </if>
-    <if test="imageurl != null" >
-    	and imageUrl = #{imageurl,jdbcType=VARCHAR}
-    </if>
     <if test="price != null and price != 0.0" >
     	and price = #{price,jdbcType=DOUBLE}
     </if>
     <if test="descdetails != null" >
     	and descDetails like '%${descdetails,jdbcType=VARCHAR}%'
-    </if>
-    <if test="sellno != null" >
-    	and sellNo = #{sellno,jdbcType=INTEGER}
     </if>
     <if test="type != null and type != ''" >
     	and type = #{type,jdbcType=VARCHAR}

@@ -6,8 +6,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lichking.itf.service.IUserService;
@@ -85,5 +87,13 @@ public class BMMasterController {
 	public String vCreateNewCom(){
 		log.info("请求路径：/back/CreateNewCom");
 		return "back/op_for_com/CreateNewCom";
+	}
+	
+	@RequestMapping("/EditCom")
+	public String vEditCom(HttpServletRequest request,Model model){
+		String id = request.getParameter("id");
+		log.info("请求路径：/back/EditCom");
+		model.addAttribute("id", id);
+		return "back/op_for_com/EditCom";
 	}
 }

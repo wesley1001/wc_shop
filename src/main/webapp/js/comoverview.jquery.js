@@ -19,7 +19,46 @@ $("#com_type").click(function(){
 		});
 	}
 });
-$("#search").bind("click",function(){
+$("#search").on("click",function(){
+	queryByWhere();
+});
+
+$(document).on("click","#com_edit",function(){
+	var com_id_type = $(this).parent().attr("id");
+	var com_id = com_id_type.substring(0,com_id_type.indexOf("_op"));
+	var url = "/wc_shop/back/EditCom?id="+com_id;
+	$.get(url,function(data){
+		//alert(data);
+		$(".com_show_area").css("display","none");
+		$(".com_edit_area").html(data);
+	});
+});
+
+$(document).on("click","#com_delete",function(){
+	var com_id_type = $(this).parent().attr("id");
+	var com_id = com_id_type.substring(0,com_id_type.indexOf("_op"));
+	//alert(com_id);
+	if(confirm("确认是否删除？")){
+		$.ajax({
+			url:"/wc_shop/back/data/deleteComByPK",
+			data: JSON.stringify(com_id),
+			contentType : 'application/json;charset=utf-8',
+			type:"post",
+			success:function(data){
+				if(data.result){
+					queryByWhere();
+					alert("删除成功！");
+				}else{
+					alert("删除失败！");
+				}
+			}
+		});
+	}
+	
+});
+
+function queryByWhere(){
+	$(".com_show_area").html("");
 	var selection = $("#com_type option:selected").text();
 	//alert(selection);
 	if(selection == "全部"){
@@ -50,7 +89,7 @@ $("#search").bind("click",function(){
 					com_div += "<div class=\"msg_border\">";
 					com_div += "<div class=\"desc_border\">"+com_list[i].name+"</div>";
 					
-					com_div += "<div id=\""+com_list[i].commodityid+"_op\" class=\"op_border\"><a>编辑</a>&nbsp;<a>删除</a></div>";
+					com_div += "<div id=\""+com_list[i].commodityid+"_op\" class=\"op_border\"><button id=\"com_edit\">编辑</button>&nbsp;<button id=\"com_delete\">删除</button></div>";
 					com_div += "</div><div class=\"ps_border\">";
 					com_div += "<div class=\"price_border\"><span id=\"price\">单价：<br />"+com_list[i].price+"</span></div>";
 					com_div += "<div class=\"sell_border\"><span id=\"sellno\">已售：<br />"+com_list[i].sellno+"</span></div>";
@@ -62,4 +101,4 @@ $("#search").bind("click",function(){
 			}
 		}
 	});
-});
+}

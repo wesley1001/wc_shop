@@ -26,5 +26,20 @@ public class CommodityInfoServiceImpl implements ICommodityInfoService {
 		return this.iCommodityInfoDAO.selectByWhere(com);
 	}
 
+	@Override
+	public CommodityInfoPOJO selectByPK(Integer comid) {
+		return this.iCommodityInfoDAO.selectByPrimaryKey(comid);
+	}
+
+	@Override
+	public int updateComByPKSelective(CommodityInfoPOJO com) {
+		return this.iCommodityInfoDAO.updateByPrimaryKeySelective(com);
+	}
+
+	@Override
+	public int deleteComByPK(Integer comid) {
+		return this.iCommodityInfoDAO.deleteByPrimaryKey(comid);
+	}
+
 	
 }
